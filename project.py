@@ -162,6 +162,21 @@ class   Type(Seat) :
 
 
     
-        
+#polymorphism       
 
-        
+class Flightt :
+        def __init__(self,amount):
+            self.amount= amount
+        def compute_amount(self):
+            return self.amount
+class Economy (Flightt):
+        def compute_amount (self):
+            amount = self.amount*10 
+            return amount
+
+class Business(Flightt):
+        def compute_amount (self):
+            amount = self.amount*50
+            return amount
+
+

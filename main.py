@@ -6,6 +6,7 @@ from project import Seat
 from project import Airport
 from project import Plane
 from project import Booking
+from project import Economy, Business
 
 import json
 
@@ -38,8 +39,6 @@ while True:
             continue
         else:
             break
-
-
 
 flights =[]
 
@@ -82,8 +81,6 @@ while True:
         else:
              break
 
-
-
 passengers =[]
 
 while True:
@@ -117,8 +114,6 @@ while True:
     }
 
 
-#opening with the json file
-
     with open("passenger.json","r") as doc:
         passengers = json.load(doc) 
 
@@ -133,7 +128,7 @@ while True:
     else:
         break
 
-         
+ 
 boardpasses = []
 
 while True:
@@ -149,7 +144,6 @@ while True:
     gate_no = input("Enter gate no:  ")
     
     
-#instance
 
     boardpass = Boardpass(seat_no, passenger_name, flight_no, type, boarding, gate_no, )
 
@@ -173,44 +167,35 @@ while True:
             continue
         else:
             break
-
-
-
+  
 seats = []
 
 while True:
-    # get user inputs
+    
     seat_ID = input(" Enter Seat ID : ")
     status = input(" Enter Your Status : ")
-    price = input(" Enter Your Status : ")
-     
+    price = input(" Enter Your price : ")
 
-
-
-    # instance
-    sets = Seat(price,status)
-
+    sets = Seat(price, status)
 
     new_entry = {
-
         "price": sets.price,
         "status": sets.status,
-       
     }
 
     print("\n\n\t  MENU \n\t 1.Add Seat \n\t 2.Remove Seat")
 
-    choice =(input("\nChoose Your Option : "))
+    choice = input("\nChoose Your Option : ")
 
-    if choice == 1:
+    if choice == "1":
         with open("seat.json", "w") as doc:
             json.dump(new_entry, doc, indent=4)
-    # saving seats
+
         with open("seat.json", "w") as doc:
             seats.append(new_entry)
             json.dump(seats, doc, indent=4)
 
-    if choice == 2:
+    if choice == "2":
         available_seat = input("Enter Seat ID You Want To Remove: ")
 
         with open("seat.json", "r") as doc:
@@ -221,17 +206,18 @@ while True:
                 seats.remove(seat)
                 print("Seat ID Removed Successfully ")
                 break
-            else:
-                print("Seat ID not found.")
+        else:
+            print("Seat ID not found.")
 
         with open("seat.json", "w") as doc:
             json.dump(seats, doc, indent=4)
+
     more_seats = input("Do You Have More Seats (YES OR NO): ")
+
     if more_seats == "YES":
         continue
     else:
         break
-    
 
 airport= []
 
@@ -264,69 +250,67 @@ while True:
     if other_information == "yes":
         continue
     else:
+        break
+
+
+    booking = []
+
+    
+while True:
+    ticket_no = input("Enter the Ticket no:  ")
+    flight_no = input("Enter the flight no:  ")
+    date = input("Enter the date:  ")
+    status = input("Enter the status:  ")
+    passenger_name = input("Enter name:  ")
+    issued_by = input("Enter the person who issued it:  ")
+    payment_method = input("Enter the payment method:  ")
 
 
 
-     booking = []
+    booking = Booking(
+        date, passenger_name, issued_by, payment_method,
+        ticket_no, flight_no, status
+    )
 
-    while True:
+    new_booking = {
+        "flight_no": booking.flight_no,
+        "date": booking.date,
+        "status": booking.status,
+        "passenger": booking.passenger_name,
+        "issued_by": booking.issued_by,
+        "payment_method": booking.payment_method,
+        "ticket_no": booking.ticket_no
+    }
 
-        # Get user input
+    print("\n\n\t MENU\n\t1. Cancel booking\n\t2. Check validity\n\t3. Exit")
 
-        ticket_no = input("Enter the Ticket no:  ")
-        flight_no = input("Enter the flight no:  ")
-        date = input("Enter the date:  ")
-        status = input("Enter the status:  ")
-        passenger_name = input("Enter name:  ")
-        issued_by = input("Enter the person ho issued it:  ")
-        payment_method = input("Enter the payment method:  ")
+    choice = int(input("\nChoose Your option: "))
 
-    # instances
+    if choice == 1:
+        with open("book.json", "w") as doc:
+            booking.cancel()
+            json.dump(new_booking, doc, indent=4)
+            print("cancelled")
 
-        booking = Booking(date, passenger_name, issued_by, payment_method,ticket_no,flight_no,status)
+    if choice == 2:
+        available_book = input("Enter the ticket number to check validity:  ")
 
-        new_booking = {
+        if available_book == ticket_no:
+            print("valid")
+        else:
+            print("Invalid")
 
-            "flight_no":  booking.flight_no,
-            "date":  booking.date,
-            "status": booking.status,
-            "passenger": booking.passenger_name,
-            "issued_by": booking.issued_by,
-            "payment_method": booking.payment_method,
-            "ticket_no":booking.ticket_no
+        with open("book.json", "w") as doc:
+            json.dump(new_booking, doc, indent=4)
 
-        }
-
-        print("\n\n\t MENU\n\t1. Cancel booking\n\t2. Check validity\n\t3. Exit")
-
-        choice = int(input("\nChoose Your option: "))
-        if choice == 1:
-            with open("book.json", "w") as doc:
-                booking.cancel()
-                json.dump(new_booking, doc, indent=4)
-                print("cancelled")
-
-        if choice == 2:
-            available_book = input("Enter the ticket number to check validity:  ")
-            if available_book ==ticket_no:
-                print ("valid")
-
-        
-            else:
-                print("Invalid")
-                with open("book.json", "w") as doc:
-                    json.dump(new_booking, doc, indent=4)
-
-                more_book = input("Do you want to add more booking? (yes/no):  ")
-                if more_book.lower() == "yes":
-                    continue
-                else:
-                    print("Exiting the program")
-                    break
     if choice == 3:
-            break
+        print("THANK YOU !")
+        break
 
+    more_book = input("Do you want to add more booking? (yes/no):  ")
 
-
-#
-
+    if more_book.lower() == "yes":
+        continue
+    else:
+        print("THANK YOU !")
+        break
