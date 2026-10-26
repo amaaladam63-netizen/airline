@@ -1,2 +1,10 @@
 [
+    {
+        "seat_no": "",
+        "passenger_name": "",
+        "flight_no": "",
+        "type": "",
+        "boarding": "",
+        "gate_no": ""
+    }
 ]

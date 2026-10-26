@@ -174,13 +174,14 @@ while True:
     
     seat_ID = input(" Enter Seat ID : ")
     status = input(" Enter Your Status : ")
-    price = input(" Enter Your price : ")
+    typ = input(" Enter Your class type : ")
 
-    sets = Seat(price, status)
+    sets = Seat(seat_ID,typ, status)
 
     new_entry = {
-        "price": sets.price,
+        "seat_id": sets.seat_ID,
         "status": sets.status,
+        "class type":sets.class_type
     }
 
     print("\n\n\t  MENU \n\t 1.Add Seat \n\t 2.Remove Seat")

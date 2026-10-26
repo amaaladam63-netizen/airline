@@ -136,27 +136,40 @@ class Booking:
 
 
 
-
+#INHERIT
 class Seat:
-    def __init__(self,price,status): 
-       
-        self.price= 1000
+    def __init__(self,seat_no,seat_ID,colour,class_type,status):
+        self.seat_no = seat_no
+        self.seat_ID=seat_ID
+        self.colour = colour
+        self.class_type = class_type 
         self.status=status
 
     def __str__(self):
-        return f'price:{self.price}\nstatus : {self.status}'
+    
+        return f'seat_no:{self.seat_no}\n seat_ID:{self.seat_ID}\n colour:{self.colour}\n {self.class_type}'
 
-class   Type(Seat) :
-    def __init__(self,price,status,seat_ID,type):
-        super().__init__(price,status)
-        self.seat_ID = seat_ID
-        self.type= class_type
+class Economy(Seat) :
+    def __init__(self, seat_ID,colour,seat_no,class_type):
+        super().init( seat_ID,seat_no,colour)
+        self.class_type=class_type
 
-    def type (self):
-        if "001" <= self.seat_ID<="0015" :
-            return "BUSSINESS CLASS"
-        else:
-            return " ECONOMOY CLASS"
+    def class_type(self):
+        return "Economy Class"
+
+class Business(Seat): 
+    def init(self, seat_no, seat_ID, colour,class_type):
+        super().init(seat_no, seat_ID, colour)
+        self.class_type=class_type
+
+    def class_type(self):
+
+        return"Business Class"
+class FirstClass(Seat):
+    def init(self, seat_no, seat_ID, colour,class_type):
+        super().init(seat_no, seat_ID, colour,class_type)
+    def class_type(self):
+        return"First Class"
 
 
 
@@ -164,17 +177,19 @@ class   Type(Seat) :
     
 #polymorphism       
 
-class Flightt :
-        def __init__(self,amount):
-            self.amount= amount
+class Seat :
+       def __init__(self, seat_ID, class_type, status):
+        self.seat_ID = seat_ID
+        self.class_type = class_type
+        self.status = status
         def compute_amount(self):
             return self.amount
-class Economy (Flightt):
+class Economy (Seat):
         def compute_amount (self):
             amount = self.amount*10 
             return amount
 
-class Business(Flightt):
+class Business(Seat):
         def compute_amount (self):
             amount = self.amount*50
             return amount
